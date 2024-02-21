@@ -3,7 +3,7 @@ import Game from '../../src/controllers/Game';
 import { RandomNumber } from '../../src/utils';
 
 describe('Test Util 테스트', () => {
-  test.skip(' mockQuestions & getLogSpy 테스트', async () => {
+  test(' mockQuestions & getLogSpy 테스트', async () => {
     const logSpy = getLogSpy();
 
     mockQuestions(['v,h', '2']);
@@ -23,7 +23,7 @@ describe('Test Util 테스트', () => {
     const randoms = [0, 9];
     mockRandoms(randoms);
 
-    randoms.forEach((number) => {
+    randoms.forEach(number => {
       expect(RandomNumber.pickNumber()).toBe(number);
     });
   });

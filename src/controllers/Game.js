@@ -1,6 +1,6 @@
 import { Car } from '../domain/index.js';
-import {OutputView} from '../view/index.js';
-import {InputController} from './index.js';
+import { OutputView } from '../view/index.js';
+import { InputController } from './index.js';
 import { OUTPUT_MESSAGE } from '../constants/index.js';
 
 class Game {
@@ -18,9 +18,11 @@ class Game {
 
     if (value) {
       const nameArray = value.split(',');
-      this.#carList = nameArray.map((name) => new Car(name));
+      this.#carList = nameArray.map(name => new Car(name));
 
-      OutputView.printMessage(`[input check] 참가 자동차: ${nameArray.join(',')}`);
+      OutputView.printMessage(
+        `[input check] 참가 자동차: ${nameArray.join(',')}`,
+      );
     }
   }
 
@@ -40,7 +42,7 @@ class Game {
   }
 
   #printRoundResult() {
-    this.#carList.forEach((car) => {
+    this.#carList.forEach(car => {
       const { name, step } = car.getCarInfo();
       const message = `${name} : ${'-'.repeat(step)} `;
 
@@ -49,15 +51,11 @@ class Game {
   }
 
   #printGameplayMessage() {
-    OutputView.printMessage(
-      `\n${OUTPUT_MESSAGE.roundResult}`,
-    );
+    OutputView.printMessage(`\n${OUTPUT_MESSAGE.roundResult}`);
   }
 
   #printRoundMessage() {
-    OutputView.printMessage(
-      `\n[${this.#round.current}라운드]`,
-    );
+    OutputView.printMessage(`\n[${this.#round.current}라운드]`);
   }
 
   play() {
@@ -65,21 +63,21 @@ class Game {
     while (this.#round.total >= this.#round.current) {
       this.#printRoundMessage();
 
-      this.#carList.forEach((car) => car.movement());
+      this.#carList.forEach(car => car.movement());
       this.#printRoundResult();
       this.#round.current += 1;
     }
   }
 
   #getWinnerPoint() {
-    return Math.max(...this.#carList.map((car) => car.getCarInfo().step));
+    return Math.max(...this.#carList.map(car => car.getCarInfo().step));
   }
 
   #judgementWinner() {
     const winnerPoint = this.#getWinnerPoint();
 
     if (winnerPoint)
-      this.#carList.forEach((car) => {
+      this.#carList.forEach(car => {
         const { step, name } = car.getCarInfo();
 
         if (step === winnerPoint) this.#winner.push(name);
